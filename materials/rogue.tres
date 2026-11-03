@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://cplj87cdprwm3"]
+
+[ext_resource type="Texture2D" uid="uid://ctrcaujuysvo6" path="res://materials/rogue_texture.png" id="1_7h6s5"]
+
+[resource]
+resource_name = "rogue"
+cull_mode = 2
+albedo_texture = ExtResource("1_7h6s5")
+roughness = 0.5

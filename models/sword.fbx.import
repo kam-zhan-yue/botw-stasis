@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cxdxd6mm3mpll"
-path="res://.godot/imported/cartoon_character.glb-a6037adf2f47ce35852e4f401709c7e9.scn"
+uid="uid://4ike4cuu4tsf"
+path="res://.godot/imported/sword.fbx-f4eb4131e8b0a7cec89d58462903df07.scn"
 
 [deps]
 
-source_file="res://models/cartoon_character.glb"
-dest_files=["res://.godot/imported/cartoon_character.glb-a6037adf2f47ce35852e4f401709c7e9.scn"]
+source_file="res://models/sword.fbx"
+dest_files=["res://.godot/imported/sword.fbx-f4eb4131e8b0a7cec89d58462903df07.scn"]
 
 [params]
 
@@ -30,13 +30,23 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=false
+animation/trimming=true
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
-gltf/naming_version=2
-gltf/embedded_image_handling=1
+_subresources={
+"materials": {
+"knight": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://materials/knight.tres",
+"use_external/path": "uid://xc1eywo41mq4"
+}
+}
+}
+fbx/importer=0
+fbx/allow_geometry_helper_nodes=false
+fbx/embedded_image_handling=1
+fbx/naming_version=2

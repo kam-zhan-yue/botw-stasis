@@ -2,10 +2,13 @@
 
 [ext_resource type="Script" uid="uid://uuag6sx6iknt" path="res://scripts/player_controller.gd" id="1_0xm2m"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="1_1bvp3"]
-[ext_resource type="PackedScene" uid="uid://cxdxd6mm3mpll" path="res://models/cartoon_character.glb" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://cqrd0dp40wkvb" path="res://scripts/camera_controller.gd" id="1_lquwl"]
+[ext_resource type="PackedScene" uid="uid://ccpg8wna14ul4" path="res://models/quiver.fbx" id="2_5vw27"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_lquwl"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://4ike4cuu4tsf" path="res://models/sword.fbx" id="7_kek77"]
+[ext_resource type="PackedScene" uid="uid://c8vf2jcyw68h" path="res://models/shield.fbx" id="8_4c57u"]
+[ext_resource type="PackedScene" uid="uid://dsyucy80jetbe" path="res://models/rogue.glb" id="9_kek77"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -21,8 +24,6 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7tw"]
-radius = 0.2
-height = 0.8
 
 [sub_resource type="Resource" id="Resource_lquwl"]
 script = ExtResource("2_lquwl")
@@ -37,23 +38,24 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="Player" type="CharacterBody3D" parent="." unique_id=104896106]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9337454, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14079154, 0)
 script = ExtResource("1_0xm2m")
 
-[node name="model" parent="Player" unique_id=1844991642 instance=ExtResource("1_ig7tw")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -0.8514823, 0)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=2045223560]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4400369, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93826663, 0)
 shape = SubResource("CapsuleShape3D_ig7tw")
 
+[node name="quiver" parent="Player" unique_id=1475144671 instance=ExtResource("2_5vw27")]
+transform = Transform3D(-0.95105654, -0.309017, -8.742278e-08, -0.309017, 0.95105654, 0, 8.3144e-08, 2.7015124e-08, -1, -0.027318, 0.89279044, -0.455724)
+
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1076426900]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.034164906, 0.037602186, 0.033004045)
 use_collision = true
 size = Vector3(20, 0.1, 20)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=589367419]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202015, 0, -0.34202015, 0.9396926, 0, 1.2757655, 0.9396926)
+transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 0.48281166, 0.9396926)
 top_level = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=22873305]
@@ -67,7 +69,7 @@ script = ExtResource("1_lquwl")
 metadata/_custom_type_script = "uid://cqrd0dp40wkvb"
 
 [node name="PhantomCamera3D" type="Node3D" parent="CameraController" unique_id=270071914 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202015, 0, -0.34202015, 0.9396926, 0, 1.2757655, 0.9396926)
+transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 0.48281166, 0.9396926)
 script = ExtResource("1_1bvp3")
 follow_mode = 6
 follow_target = NodePath("../../Player")
@@ -77,3 +79,11 @@ align_transform_with_view = Callable()
 align_position_with_view = Callable()
 align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="sword" parent="." unique_id=938367656 instance=ExtResource("7_kek77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8978808, 1)
+
+[node name="shield" parent="." unique_id=1364950769 instance=ExtResource("8_4c57u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8209579, 0.6277504, 0.46575856)
+
+[node name="rogue" parent="." unique_id=391467329 instance=ExtResource("9_kek77")]
