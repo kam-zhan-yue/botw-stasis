@@ -5,9 +5,10 @@
 [ext_resource type="Script" uid="uid://cqrd0dp40wkvb" path="res://scripts/camera_controller.gd" id="1_lquwl"]
 [ext_resource type="PackedScene" uid="uid://ccpg8wna14ul4" path="res://models/quiver.fbx" id="2_5vw27"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_lquwl"]
+[ext_resource type="AnimationLibrary" uid="uid://catyiakdtha3s" path="res://models/rig_combat_melee.fbx" id="3_4c57u"]
+[ext_resource type="AnimationLibrary" uid="uid://dnv3my2ysyfqr" path="res://models/rig_movement_basic.fbx" id="3_5vw27"]
+[ext_resource type="AnimationLibrary" uid="uid://cgnm6byr5sly3" path="res://models/rig_general.fbx" id="4_efxa6"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_lquwl"]
-[ext_resource type="PackedScene" uid="uid://4ike4cuu4tsf" path="res://models/sword.fbx" id="7_kek77"]
-[ext_resource type="PackedScene" uid="uid://c8vf2jcyw68h" path="res://models/shield.fbx" id="8_4c57u"]
 [ext_resource type="PackedScene" uid="uid://dsyucy80jetbe" path="res://models/rogue.glb" id="9_kek77"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
@@ -23,6 +24,57 @@ sky = SubResource("Sky_0xm2m")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dg77c"]
+animation = &"rig_combat_melee/Melee_1H_Attack_Slice_Horizontal"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ycdy4"]
+animation = &"rig_combat_melee/Melee_1H_Attack_Stab"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w48qg"]
+animation = &"rig_combat_melee/Melee_1H_Attack_Slice_Diagonal"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_vivmo"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_2cqfq"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_yaehf"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_074og"]
+animation = &"rig_general/Idle_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cegan"]
+animation = &"rig_movement_basic/Running_B"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_82xsv"]
+animation = &"rig_movement_basic/Walking_B"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_getpj"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_074og")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_cegan")
+blend_point_1/pos = 1.0
+blend_point_2/node = SubResource("AnimationNodeAnimation_82xsv")
+blend_point_2/pos = 0.5
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_ryguw"]
+graph_offset = Vector2(-160.92627, -60.18347)
+nodes/output/position = Vector2(1360, 160)
+nodes/attack_1/node = SubResource("AnimationNodeOneShot_vivmo")
+nodes/attack_1/position = Vector2(780, 60)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_dg77c")
+"nodes/Animation 2/position" = Vector2(220, 300)
+nodes/run/node = SubResource("AnimationNodeBlendSpace1D_getpj")
+nodes/run/position = Vector2(300, 80)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_w48qg")
+nodes/Animation/position = Vector2(420, 520)
+nodes/attack_2/node = SubResource("AnimationNodeOneShot_2cqfq")
+nodes/attack_2/position = Vector2(1020, 380)
+"nodes/Animation 3/node" = SubResource("AnimationNodeAnimation_ycdy4")
+"nodes/Animation 3/position" = Vector2(680, 740)
+nodes/attack_3/node = SubResource("AnimationNodeOneShot_yaehf")
+nodes/attack_3/position = Vector2(1200, 640)
+node_connections = [&"output", 0, &"attack_3", &"attack_1", 0, &"run", &"attack_1", 1, &"Animation 2", &"attack_2", 0, &"attack_1", &"attack_2", 1, &"Animation", &"attack_3", 0, &"attack_2", &"attack_3", 1, &"Animation 3"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig7tw"]
 
 [sub_resource type="Resource" id="Resource_lquwl"]
@@ -37,9 +89,35 @@ environment = SubResource("Environment_h2yge")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Player" type="CharacterBody3D" parent="." unique_id=104896106]
+[node name="Player" type="CharacterBody3D" parent="." unique_id=104896106 node_paths=PackedStringArray("pcam")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.14079154, 0)
 script = ExtResource("1_0xm2m")
+pcam = NodePath("../CameraController/PhantomCamera3D")
+
+[node name="rogue" parent="Player" unique_id=391467329 instance=ExtResource("9_kek77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14079154, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/rogue" unique_id=1485468779]
+unique_name_in_owner = true
+libraries/rig_combat_melee = ExtResource("3_4c57u")
+libraries/rig_general = ExtResource("4_efxa6")
+libraries/rig_movement_basic = ExtResource("3_5vw27")
+
+[node name="AnimationTree" type="AnimationTree" parent="Player/rogue" unique_id=420661156]
+unique_name_in_owner = true
+root_node = NodePath("%AnimationTree/..")
+tree_root = SubResource("AnimationNodeBlendTree_ryguw")
+anim_player = NodePath("../AnimationPlayer")
+parameters/attack_1/active = false
+parameters/attack_1/internal_active = false
+parameters/attack_1/request = 0
+parameters/run/blend_position = 0.0
+parameters/attack_2/active = false
+parameters/attack_2/internal_active = false
+parameters/attack_2/request = 0
+parameters/attack_3/active = false
+parameters/attack_3/internal_active = false
+parameters/attack_3/request = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=2045223560]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93826663, 0)
@@ -55,7 +133,7 @@ size = Vector3(20, 0.1, 20)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=589367419]
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 0.48281166, 0.9396926)
+transform = Transform3D(-1, 0, 0, 0, 0.9723699, 0.23344538, 0, 0.23344538, -0.9723699, 0, 2.459405, -2.430925)
 top_level = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=22873305]
@@ -69,21 +147,17 @@ script = ExtResource("1_lquwl")
 metadata/_custom_type_script = "uid://cqrd0dp40wkvb"
 
 [node name="PhantomCamera3D" type="Node3D" parent="CameraController" unique_id=270071914 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 0.48281166, 0.9396926)
+transform = Transform3D(-1, 0, 0, 0, 0.9723699, 0.23344538, 0, 0.23344538, -0.9723699, 0, 2.459405, -2.430925)
 script = ExtResource("1_1bvp3")
 follow_mode = 6
 follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_lquwl")
-vertical_rotation_offset = 0.3490658503988659
+follow_offset = Vector3(0, 1.735, 0)
+follow_damping = true
+follow_distance = 2.5
+vertical_rotation_offset = 2.9059732045705586
+spring_length = 2.5
 align_transform_with_view = Callable()
 align_position_with_view = Callable()
 align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
-
-[node name="sword" parent="." unique_id=938367656 instance=ExtResource("7_kek77")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8978808, 1)
-
-[node name="shield" parent="." unique_id=1364950769 instance=ExtResource("8_4c57u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8209579, 0.6277504, 0.46575856)
-
-[node name="rogue" parent="." unique_id=391467329 instance=ExtResource("9_kek77")]
