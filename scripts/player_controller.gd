@@ -20,9 +20,7 @@ var attack_cooldown_timer := 0.0
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack"):
-		print("attack")
 		input_attack_requested = true
-
 
 ## Process
 func _process(delta: float) -> void:
