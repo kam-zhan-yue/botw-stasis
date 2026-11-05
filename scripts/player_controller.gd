@@ -6,10 +6,13 @@ enum AttackIndex { One, Two, Three, End }
 
 @export var move_speed := 10.0
 @export var attack_cooldown_interval := 1.3
+@export var attack_hitbox_enable_interval_max = 1.2
+@export var attack_hitbox_enable_interval_min = 0.5
 @export var attackable_interval := 0.8
 @export var pcam: PhantomCamera3D
 
 @onready var animation_tree := %AnimationTree as AnimationTree
+@onready var sword := %Sword as Sword
 
 var input_move_vector: Vector2
 var input_attack_requested := false
@@ -31,10 +34,17 @@ func _process(delta: float) -> void:
 func _process_attack(delta: float) -> void:
 	if attack_cooldown_timer >= 0.0:
 		attack_cooldown_timer -= delta
+
+	if (attack_cooldown_timer >= attack_hitbox_enable_interval_min 
+		and attack_cooldown_timer <= attack_hitbox_enable_interval_max 
+		and state == State.Attacking):
+		sword.set_active(true)
+	else:
+		sword.set_active(false)
 	
 	if attack_cooldown_timer <= 0.0:
-		state = State.Walking
-		attack_index = AttackIndex.One
+		_reset_attack()
+
 
 	if !input_attack_requested:
 		return
@@ -46,26 +56,6 @@ func _process_attack(delta: float) -> void:
 
 	_enter_attack(attack_index)
 
-
-func _enter_attack(index: AttackIndex) -> void:
-	animation_tree.set("parameters/attack_1/request", _get_attack_request(index == AttackIndex.One))
-	animation_tree.set("parameters/attack_2/request", _get_attack_request(index == AttackIndex.Two))
-	animation_tree.set("parameters/attack_3/request", _get_attack_request(index == AttackIndex.Three))
-	match attack_index:
-		AttackIndex.One:
-			attack_index = AttackIndex.Two
-		AttackIndex.Two:
-			attack_index = AttackIndex.Three
-		AttackIndex.Three:
-			attack_index = AttackIndex.End
-	attack_cooldown_timer = attack_cooldown_interval
-	state = State.Attacking
-
-
-func _get_attack_request(fire: bool) -> AnimationNodeOneShot.OneShotRequest:
-	if fire:
-		return AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
-	return AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT
 
 ## Physics Process
 func _physics_process(delta: float) -> void:
@@ -132,3 +122,28 @@ func _process_walk_animation() -> void:
 		"parameters/run/blend_position",
 		1 if input_move_vector.length_squared() > 0.0 else 0
 	)
+
+func _reset_attack() -> void:
+	state = State.Walking
+	attack_index = AttackIndex.One
+	sword.set_active(false)
+
+func _enter_attack(index: AttackIndex) -> void:
+	animation_tree.set("parameters/attack_1/request", _get_attack_request(index == AttackIndex.One))
+	animation_tree.set("parameters/attack_2/request", _get_attack_request(index == AttackIndex.Two))
+	animation_tree.set("parameters/attack_3/request", _get_attack_request(index == AttackIndex.Three))
+	match attack_index:
+		AttackIndex.One:
+			attack_index = AttackIndex.Two
+		AttackIndex.Two:
+			attack_index = AttackIndex.Three
+		AttackIndex.Three:
+			attack_index = AttackIndex.End
+	attack_cooldown_timer = attack_cooldown_interval
+	state = State.Attacking
+
+
+func _get_attack_request(fire: bool) -> AnimationNodeOneShot.OneShotRequest:
+	if fire:
+		return AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+	return AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT
