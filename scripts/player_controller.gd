@@ -1,29 +1,36 @@
 class_name PlayerController
 extends CharacterBody3D
 
-enum State { Walking, Attacking }
+enum State { Normal, Attacking, Aiming }
 enum AttackIndex { One, Two, Three, End }
 
-@export var move_speed := 10.0
-@export var attack_cooldown_interval := 1.3
-@export var attack_hitbox_enable_interval_max = 1.2
-@export var attack_hitbox_enable_interval_min = 0.5
-@export var attackable_interval := 0.8
-@export var pcam: PhantomCamera3D
-
+@onready var camera_controller := %CameraController as CameraController
+@onready var stasis_controller := %StasisController as StasisController
 @onready var animation_tree := %AnimationTree as AnimationTree
 @onready var sword := %Sword as Sword
 
-var input_move_vector: Vector2
-var input_attack_requested := false
+@export var move_speed := 10.0
+@export var attack_cooldown_interval := 1.3
+@export var attack_hitbox_enable_interval_max := 1.2
+@export var attack_hitbox_enable_interval_min := 0.5
+@export var attackable_interval := 0.8
+@export var stasis_spring_length := 1.5
 
-var state := State.Walking
+var input_move_vector: Vector2
+
+var state := State.Normal
 var attack_index := AttackIndex.One
 var attack_cooldown_timer := 0.0
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack"):
-		input_attack_requested = true
+	if state == State.Normal and event.is_action_pressed("aim"):
+		_aim()
+	elif state == State.Normal and event.is_action_pressed("attack"):
+		_attack()
+	elif state == State.Aiming and event.is_action_pressed("attack"):
+		_stasis()
+	elif state == State.Aiming and event.is_action_pressed("aim"):
+		_aim_end()
 
 ## Process
 func _process(delta: float) -> void:
@@ -42,25 +49,16 @@ func _process_attack(delta: float) -> void:
 	else:
 		sword.set_active(false)
 	
-	if attack_cooldown_timer <= 0.0:
+	if attack_cooldown_timer <= 0.0 and state == State.Attacking:
 		_reset_attack()
-
-
-	if !input_attack_requested:
-		return
-
-	input_attack_requested = false
-
-	if attack_index == AttackIndex.End or attack_cooldown_timer > attackable_interval:
-		return
-
-	_enter_attack(attack_index)
 
 
 ## Physics Process
 func _physics_process(delta: float) -> void:
 	match state:
-		State.Walking:
+		State.Normal:
+			_physics_move(delta)
+		State.Aiming:
 			_physics_move(delta)
 		State.Attacking:
 			pass
@@ -87,6 +85,13 @@ func _physics_move(delta: float) -> void:
 
 
 ## Private Functions
+func _start_aiming() -> void:
+	pass
+
+func _end_aiming() -> void:
+	pass
+
+
 func _rotate_to(direction: Vector3, delta: float) -> void:
 	if direction.is_zero_approx():
 		return
@@ -100,8 +105,8 @@ func _rotate_to(direction: Vector3, delta: float) -> void:
 
 
 func _get_move_vector() -> Vector3:
-	var forward := pcam.global_basis.z
-	var right := -pcam.global_basis.x
+	var forward := camera_controller.pcam.global_basis.z
+	var right := -camera_controller.pcam.global_basis.x
 
 	forward.y = 0.0
 	right.y = 0.0
@@ -124,11 +129,27 @@ func _process_walk_animation() -> void:
 	)
 
 func _reset_attack() -> void:
-	state = State.Walking
+	state = State.Normal
 	attack_index = AttackIndex.One
 	sword.set_active(false)
 
-func _enter_attack(index: AttackIndex) -> void:
+func _aim() -> void:
+	state = State.Aiming
+	stasis_controller.set_active(true)
+	camera_controller.lerp_spring_length(stasis_spring_length)
+
+func _aim_end() -> void:
+	state = State.Normal
+	stasis_controller.set_active(false)
+	camera_controller.reset_spring_length()
+
+func _stasis() -> void:
+	stasis_controller.stasis()
+
+func _attack() -> void:
+	if attack_index == AttackIndex.End or attack_cooldown_timer > attackable_interval:
+		return
+	var index = attack_index
 	animation_tree.set("parameters/attack_1/request", _get_attack_request(index == AttackIndex.One))
 	animation_tree.set("parameters/attack_2/request", _get_attack_request(index == AttackIndex.Two))
 	animation_tree.set("parameters/attack_3/request", _get_attack_request(index == AttackIndex.Three))
