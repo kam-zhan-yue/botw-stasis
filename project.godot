@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 PhantomCameraManager="*uid://duq6jhf6unyis"
+Services="*uid://ccrcwibd3easm"
+Global="*uid://cgdynixfal3yn"
 
 [editor_plugins]
 
