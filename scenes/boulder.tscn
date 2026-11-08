@@ -10,12 +10,18 @@ radius = 1.2
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_choun"]
 render_priority = 0
 shader = ExtResource("2_jrtjv")
+shader_parameter/state = 1
 shader_parameter/base_color = Color(1, 1, 1, 1)
 shader_parameter/active_color = Color(1, 1, 0.34509805, 1)
 shader_parameter/highlight_color = Color(0.20392157, 1, 0.2627451, 1)
-shader_parameter/stasis_color = Color(0.98039216, 0.41960785, 0.2627451, 1)
-shader_parameter/state = 0
-shader_parameter/emission = 2.0
+shader_parameter/border_color = Color(1, 1, 1, 1)
+shader_parameter/stasis_start_color = Color(1, 1, 0.34509805, 1)
+shader_parameter/stasis_end_color = Color(1, 0.4745098, 0.3372549, 1)
+shader_parameter/stasis_weight = 0.0
+shader_parameter/fresnel_power = 1.0
+shader_parameter/emission = 1.0
+shader_parameter/border_fresnel_power = 7.0
+shader_parameter/border_emission = 2.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vivmo"]
 radius = 1.2
@@ -35,6 +41,7 @@ shape = SubResource("SphereShape3D_ycdy4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08860803, 0)
 radius = 1.2
 radial_segments = 16
+rings = 10
 material = SubResource("ShaderMaterial_choun")
 
 [node name="Hurtbox" type="Node3D" parent="." unique_id=903889645]
