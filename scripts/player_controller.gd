@@ -27,6 +27,8 @@ func _input(event: InputEvent) -> void:
 		_aim()
 	elif state == State.Normal and event.is_action_pressed("attack"):
 		_attack()
+	elif state == State.Attacking and event.is_action_pressed("attack"):
+		_attack()
 	elif state == State.Aiming and event.is_action_pressed("attack"):
 		_stasis()
 	elif state == State.Aiming and event.is_action_pressed("aim"):
@@ -145,6 +147,7 @@ func _aim_end() -> void:
 
 func _stasis() -> void:
 	stasis_controller.stasis()
+	_aim_end()
 
 func _attack() -> void:
 	if attack_index == AttackIndex.End or attack_cooldown_timer > attackable_interval:

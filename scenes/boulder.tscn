@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://f4yttqhbqysa"]
+
+[ext_resource type="Script" uid="uid://u6dx535k4yko" path="res://scripts/stasis_target.gd" id="1_wye2t"]
+[ext_resource type="Shader" uid="uid://hj4ubu6oyop1" path="res://shaders/stasis.gdshader" id="2_jrtjv"]
+[ext_resource type="Script" uid="uid://dkek4j7ifomyu" path="res://scripts/hurtbox.gd" id="3_8hte1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ycdy4"]
+radius = 1.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_choun"]
+render_priority = 0
+shader = ExtResource("2_jrtjv")
+shader_parameter/original_color = Color(1, 1, 1, 1)
+shader_parameter/highlight_color = Color(1, 0, 0, 1)
+shader_parameter/stasis_color = Color(1, 1, 0.2627451, 1)
+shader_parameter/highlight = false
+shader_parameter/stasis = false
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vivmo"]
+radius = 1.2
+
+[node name="Boulder" type="RigidBody3D" unique_id=1052606398 node_paths=PackedStringArray("mesh_instance", "hurtbox", "rigidbody")]
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("1_wye2t")
+mesh_instance = NodePath("CSGSphere3D")
+hurtbox = NodePath("Hurtbox")
+rigidbody = NodePath(".")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2032081907]
+shape = SubResource("SphereShape3D_ycdy4")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=936863315]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08860803, 0)
+radius = 1.2
+radial_segments = 16
+material = SubResource("ShaderMaterial_choun")
+
+[node name="Hurtbox" type="Node3D" parent="." unique_id=903889645]
+script = ExtResource("3_8hte1")
+
+[node name="Area3D" type="Area3D" parent="Hurtbox" unique_id=674868216]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox/Area3D" unique_id=2145249378]
+shape = SubResource("SphereShape3D_vivmo")
+debug_color = Color(0.948003, 3.85046e-06, 0.5827421, 0.41960785)
