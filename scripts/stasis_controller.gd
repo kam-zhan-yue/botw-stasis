@@ -8,8 +8,9 @@ var targeting: StasisTarget
 
 func set_active(active: bool) -> void:
 	is_active = active
-	if not active and targeting:
-		targeting.set_highlighted(false)
+	for target in Services.level.stasis_targets:
+		var stasis_target = target as StasisTarget
+		stasis_target.set_active(active)
 	targeting = null
 
 func stasis() -> void:

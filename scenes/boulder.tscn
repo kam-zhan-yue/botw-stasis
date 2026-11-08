@@ -10,11 +10,12 @@ radius = 1.2
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_choun"]
 render_priority = 0
 shader = ExtResource("2_jrtjv")
-shader_parameter/original_color = Color(1, 1, 1, 1)
-shader_parameter/highlight_color = Color(1, 0, 0, 1)
-shader_parameter/stasis_color = Color(1, 1, 0.2627451, 1)
-shader_parameter/highlight = false
-shader_parameter/stasis = false
+shader_parameter/base_color = Color(1, 1, 1, 1)
+shader_parameter/active_color = Color(1, 1, 0.34509805, 1)
+shader_parameter/highlight_color = Color(0.20392157, 1, 0.2627451, 1)
+shader_parameter/stasis_color = Color(0.98039216, 0.41960785, 0.2627451, 1)
+shader_parameter/state = 0
+shader_parameter/emission = 2.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vivmo"]
 radius = 1.2
