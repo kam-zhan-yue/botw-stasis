@@ -10,10 +10,10 @@ enum AttackIndex { One, Two, Three, End }
 @onready var sword := %Sword as Sword
 
 @export var move_speed := 10.0
-@export var attack_cooldown_interval := 1.3
+@export var attack_cooldown_interval := 1.0
 @export var attack_hitbox_enable_interval_max := 1.2
 @export var attack_hitbox_enable_interval_min := 0.5
-@export var attackable_interval := 0.8
+@export var attackable_interval := 0.5
 @export var stasis_spring_length := 1.5
 
 var input_move_vector: Vector2

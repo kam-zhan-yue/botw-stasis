@@ -7,21 +7,34 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_ycdy4"]
 radius = 1.2
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wye2t"]
+noise_type = 3
+seed = 22
+fractal_octaves = 3
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jrtjv"]
+noise = SubResource("FastNoiseLite_wye2t")
+seamless = true
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_choun"]
 render_priority = 0
 shader = ExtResource("2_jrtjv")
-shader_parameter/state = 1
+shader_parameter/state = 0
 shader_parameter/base_color = Color(1, 1, 1, 1)
 shader_parameter/active_color = Color(1, 1, 0.34509805, 1)
 shader_parameter/highlight_color = Color(0.20392157, 1, 0.2627451, 1)
 shader_parameter/border_color = Color(1, 1, 1, 1)
 shader_parameter/stasis_start_color = Color(1, 1, 0.34509805, 1)
-shader_parameter/stasis_end_color = Color(1, 0.4745098, 0.3372549, 1)
-shader_parameter/stasis_weight = 0.0
+shader_parameter/stasis_end_color = Color(1, 0.20000005, 0, 1)
+shader_parameter/stasis_weight = 0.6
 shader_parameter/fresnel_power = 1.0
 shader_parameter/emission = 1.0
 shader_parameter/border_fresnel_power = 7.0
 shader_parameter/border_emission = 2.0
+shader_parameter/noise_emission = 0.605
+shader_parameter/noise_start_color = Color(0.78, 0.78, 0.49919996, 1)
+shader_parameter/noise_end_color = Color(0.6, 0.24480005, 0.156, 1)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_jrtjv")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vivmo"]
 radius = 1.2

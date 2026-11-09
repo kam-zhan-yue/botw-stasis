@@ -7,12 +7,15 @@ enum State { Idle, Active, Highlight, Stasis }
 @export var hurtbox: Hurtbox
 @export var rigidbody: RigidBody3D
 @export var max_visual_force := 5000.0
+@export var stasis_arrow_scene: PackedScene
 
 var shader_material: ShaderMaterial
 
 var state := State.Idle
 
-var stasis_vector := Vector3.ZERO
+var stasis_launch_magnitude := 0.0
+var stasis_launch_direction := Vector3.ZERO
+var stasis_arrow: StasisArrow
 
 func _ready() -> void:
 	mesh_instance.material = mesh_instance.material.duplicate()
@@ -41,33 +44,48 @@ func set_highlighted(value: bool) -> void:
 func stasis(time: float) -> void:
 	_set_state(State.Stasis)
 
-	stasis_vector = Vector3.ZERO
+	stasis_launch_magnitude = 0.0
+	stasis_launch_direction = Vector3.ZERO
 	shader_material.set_shader_parameter("stasis_weight", 0)
-
-	print("Start Stasis!")
+	rigidbody.freeze = true
+	rigidbody.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
 
 	await Global.seconds(time)
-
-	print("End Stasis!")
 	
 	_set_state(State.Idle)
 
-	_apply_stasis_vector()
+	rigidbody.freeze = false
 	shader_material.set_shader_parameter("stasis_weight", 0)
+	_clear_stasis_arrow()
+	_apply_stasis_vector()
 
 func _set_state(new_state: State) -> void:
 	state = new_state
 	shader_material.set_shader_parameter("state", state)
-	pass
 
 func _on_hit(hit: Hit) -> void:
 	if state != State.Stasis:
 		return
 
 	var direction := global_position - hit.origin_point
-	stasis_vector += hit.magnitude * direction
-	var stasis_weight = min(stasis_vector.length() / max_visual_force, 1.0)
+	stasis_launch_magnitude += hit.magnitude;
+	stasis_launch_direction = direction.normalized()
+	var stasis_weight = min(stasis_launch_magnitude / max_visual_force, 1.0)
 	shader_material.set_shader_parameter("stasis_weight", stasis_weight)
 
+	_update_stasis_arrow()
+
+func _update_stasis_arrow() -> void:
+	if stasis_arrow == null:
+		stasis_arrow = stasis_arrow_scene.instantiate() as StasisArrow
+		add_child(stasis_arrow)
+	stasis_arrow.update_direction(stasis_launch_direction.normalized())
+
+func _clear_stasis_arrow() -> void:
+	if stasis_arrow != null:
+		stasis_arrow.queue_free()
+		stasis_arrow = null
+
 func _apply_stasis_vector() -> void:
-	rigidbody.apply_impulse(stasis_vector)
+	var launch_vector := stasis_launch_direction.normalized() * stasis_launch_magnitude;
+	rigidbody.apply_impulse(launch_vector)

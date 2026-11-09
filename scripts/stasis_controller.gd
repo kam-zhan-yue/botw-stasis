@@ -1,7 +1,7 @@
 class_name StasisController
 extends Node3D
 
-@export var stasis_time := 5.0
+@export var stasis_time := 7.0
 
 var is_active := false
 var targeting: StasisTarget
