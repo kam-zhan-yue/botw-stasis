@@ -38,7 +38,7 @@ func _process_collision(i: int) -> void:
 
 	collision_ids.append(hurtbox_id)
 	var collision_point = shape.get_collision_point(i)
-	Services.debug.hit(collision_point)
+	# Services.debug.hit(collision_point)
 
 	var hit = Hit.new(hit_magnitude, collision_point)
 	hurtbox.hit(hit)

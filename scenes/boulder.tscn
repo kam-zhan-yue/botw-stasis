@@ -27,6 +27,7 @@ shader_parameter/border_color = Color(1, 1, 1, 1)
 shader_parameter/stasis_start_color = Color(1, 1, 0.34509805, 1)
 shader_parameter/stasis_end_color = Color(1, 0.20000005, 0, 1)
 shader_parameter/stasis_weight = 0.6
+shader_parameter/stasis_elapsed_time = 0.0
 shader_parameter/fresnel_power = 1.0
 shader_parameter/emission = 1.0
 shader_parameter/border_fresnel_power = 7.0

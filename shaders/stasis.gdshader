@@ -12,6 +12,7 @@ uniform vec3 border_color : source_color = vec3(1.0);
 uniform vec3 stasis_start_color : source_color = vec3(1.0);
 uniform vec3 stasis_end_color : source_color = vec3(1.0);
 uniform float stasis_weight = 0.0;
+uniform float stasis_elapsed_time = 0.0;
 
 // Inner Fresnel
 uniform float fresnel_power = 2.0;
@@ -37,7 +38,7 @@ float fresnel(vec3 normal, vec3 view, float power) {
 
 vec3 get_noise_color(float x, vec2 uv) {
   float pulse = fract(x);
-  float pulse_delayed = fract(x) - 0.1;
+  float pulse_delayed = clamp(fract(x) - 0.1, 0.0, 1.0);
   float noise = texture(noise_texture, uv).r;
   float stepped_noise = step(pulse, noise);
   float stepped_noise_delayed = step(pulse_delayed, noise);
@@ -67,7 +68,7 @@ void fragment() {
   }
 
   if (state == 3) {
-    target_color += get_noise_color(TIME, UV);
+    target_color += get_noise_color(stasis_elapsed_time, UV);
   }
 
   ALBEDO = base_color.rgb;

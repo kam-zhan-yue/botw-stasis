@@ -13,6 +13,7 @@ var shader_material: ShaderMaterial
 
 var state := State.Idle
 
+var stasis_elapsed_time := 0.0
 var stasis_launch_magnitude := 0.0
 var stasis_launch_direction := Vector3.ZERO
 var stasis_arrow: StasisArrow
@@ -40,11 +41,16 @@ func set_highlighted(value: bool) -> void:
 	else:
 		_set_state(State.Active)
 
+func _process(delta: float) -> void:
+	if state == State.Stasis:
+		stasis_elapsed_time += delta
+		shader_material.set_shader_parameter("stasis_elapsed_time", stasis_elapsed_time)
 
 func stasis(time: float) -> void:
 	_set_state(State.Stasis)
 
 	stasis_launch_magnitude = 0.0
+	stasis_elapsed_time = 0.0
 	stasis_launch_direction = Vector3.ZERO
 	shader_material.set_shader_parameter("stasis_weight", 0)
 	rigidbody.freeze = true
@@ -72,6 +78,7 @@ func _on_hit(hit: Hit) -> void:
 	stasis_launch_direction = direction.normalized()
 	var stasis_weight = min(stasis_launch_magnitude / max_visual_force, 1.0)
 	shader_material.set_shader_parameter("stasis_weight", stasis_weight)
+
 	var stasis_start_color = shader_material.get_shader_parameter("stasis_start_color")
 	var stasis_end_color = shader_material.get_shader_parameter("stasis_end_color")
 	var stasis_color := lerp(stasis_start_color, stasis_end_color, stasis_weight) as Color
