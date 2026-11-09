@@ -1,16 +1,19 @@
 [gd_scene format=3 uid="uid://bwu8j2fsplai1"]
 
 [ext_resource type="Script" uid="uid://d0ojc774of0il" path="res://scripts/stasis_arrow.gd" id="1_xdr3g"]
+[ext_resource type="Shader" uid="uid://dfibkoqqkdr0h" path="res://shaders/stasis_arrow.gdshader" id="2_yk4hp"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xdr3g"]
-transparency = 1
-no_depth_test = true
-albedo_color = Color(1, 1, 1, 0.3137255)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xdr3g"]
+render_priority = 0
+shader = ExtResource("2_yk4hp")
+shader_parameter/arrow_color = Color(1, 1, 1, 1)
+shader_parameter/alpha = 0.3
 
-[node name="StasisArrow" type="Node3D" unique_id=92216853]
+[node name="StasisArrow" type="Node3D" unique_id=92216853 node_paths=PackedStringArray("mesh_instance")]
 script = ExtResource("1_xdr3g")
+mesh_instance = NodePath("CSGBox3D")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=336502641]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.25)
 size = Vector3(0.25, 0.25, 2.5)
-material = SubResource("StandardMaterial3D_xdr3g")
+material = SubResource("ShaderMaterial_xdr3g")

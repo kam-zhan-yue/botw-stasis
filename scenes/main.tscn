@@ -100,5 +100,4 @@ collision_mask = 4
 [node name="Boulder" parent="." unique_id=1052606398 instance=ExtResource("7_o6xl0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0207319, 3.0194714)
 mass = 200.0
-max_visual_force = 2000.0
 stasis_arrow_scene = ExtResource("11_ya4ey")

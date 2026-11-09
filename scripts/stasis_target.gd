@@ -72,14 +72,18 @@ func _on_hit(hit: Hit) -> void:
 	stasis_launch_direction = direction.normalized()
 	var stasis_weight = min(stasis_launch_magnitude / max_visual_force, 1.0)
 	shader_material.set_shader_parameter("stasis_weight", stasis_weight)
+	var stasis_start_color = shader_material.get_shader_parameter("stasis_start_color")
+	var stasis_end_color = shader_material.get_shader_parameter("stasis_end_color")
+	var stasis_color := lerp(stasis_start_color, stasis_end_color, stasis_weight) as Color
+	_update_stasis_arrow(stasis_color)
 
-	_update_stasis_arrow()
-
-func _update_stasis_arrow() -> void:
+func _update_stasis_arrow(color: Color) -> void:
 	if stasis_arrow == null:
 		stasis_arrow = stasis_arrow_scene.instantiate() as StasisArrow
 		add_child(stasis_arrow)
+		stasis_arrow.init()
 	stasis_arrow.update_direction(stasis_launch_direction.normalized())
+	stasis_arrow.update_color(color)
 
 func _clear_stasis_arrow() -> void:
 	if stasis_arrow != null:
