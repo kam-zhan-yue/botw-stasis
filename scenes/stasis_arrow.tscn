@@ -1,19 +1,23 @@
 [gd_scene format=3 uid="uid://bwu8j2fsplai1"]
 
 [ext_resource type="Script" uid="uid://d0ojc774of0il" path="res://scripts/stasis_arrow.gd" id="1_xdr3g"]
+[ext_resource type="PackedScene" uid="uid://bm4lvg6bgnqic" path="res://models/stasis-arrow.blend" id="2_350nl"]
 [ext_resource type="Shader" uid="uid://dfibkoqqkdr0h" path="res://shaders/stasis_arrow.gdshader" id="2_yk4hp"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xdr3g"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nn3ka"]
 render_priority = 0
 shader = ExtResource("2_yk4hp")
 shader_parameter/arrow_color = Color(1, 1, 1, 1)
-shader_parameter/alpha = 0.3
+shader_parameter/alpha = 0.5
 
 [node name="StasisArrow" type="Node3D" unique_id=92216853 node_paths=PackedStringArray("mesh_instance")]
 script = ExtResource("1_xdr3g")
-mesh_instance = NodePath("CSGBox3D")
+mesh_instance = NodePath("model/Cube")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=336502641]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.25)
-size = Vector3(0.25, 0.25, 2.5)
-material = SubResource("ShaderMaterial_xdr3g")
+[node name="model" parent="." unique_id=712892776 instance=ExtResource("2_350nl")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+
+[node name="Cube" parent="model" index="0" unique_id=1577355901]
+surface_material_override/0 = SubResource("ShaderMaterial_nn3ka")
+
+[editable path="model"]

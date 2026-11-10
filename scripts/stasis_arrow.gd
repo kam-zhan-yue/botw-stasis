@@ -1,14 +1,15 @@
 class_name StasisArrow
 extends Node3D
 
-@export var mesh_instance: CSGBox3D
+@export var mesh_instance: MeshInstance3D
 
 var shader_material: ShaderMaterial
 var current_direction := Vector3.ZERO
 
 func init() -> void:
-	mesh_instance.material = mesh_instance.material.duplicate()
-	shader_material = mesh_instance.material as ShaderMaterial
+	var material_instance := mesh_instance.get_surface_override_material(0).duplicate()
+	mesh_instance.set_surface_override_material(0, material_instance) 
+	shader_material = material_instance as ShaderMaterial
 
 func update_direction(direction: Vector3) -> void:
 	current_direction = direction.normalized()
