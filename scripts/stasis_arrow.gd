@@ -16,4 +16,4 @@ func update_direction(direction: Vector3) -> void:
 	look_at(global_position + current_direction, Vector3.UP)
 
 func update_color(color: Color) -> void:
-	shader_material.set_shader_parameter("arrow_color", color)
+	shader_material.set_shader_parameter("base_color", color)

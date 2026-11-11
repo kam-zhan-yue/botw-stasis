@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://x2di5jssx2dy"]
+
+[ext_resource type="Script" uid="uid://pfpwd23bi15k" path="res://scripts/stasis_chain.gd" id="1_7iotj"]
+[ext_resource type="PackedScene" uid="uid://b5n1jp1hiyntl" path="res://models/chain.blend" id="2_4uab7"]
+[ext_resource type="Material" uid="uid://c3yy46mi0dc4t" path="res://materials/chain_material.tres" id="3_4uab7"]
+
+[node name="StasisChain" type="Node3D" unique_id=709714339 node_paths=PackedStringArray("mesh_instances")]
+script = ExtResource("1_7iotj")
+mesh_instances = [NodePath("chain/BézierCurve"), NodePath("chain/BézierCurve_001")]
+
+[node name="chain" parent="." unique_id=1717314289 instance=ExtResource("2_4uab7")]
+
+[node name="BézierCurve" parent="chain" index="0" unique_id=1693756719]
+surface_material_override/0 = ExtResource("3_4uab7")
+
+[node name="BézierCurve_001" parent="chain" index="1" unique_id=1770472285]
+surface_material_override/0 = ExtResource("3_4uab7")
+
+[editable path="chain"]

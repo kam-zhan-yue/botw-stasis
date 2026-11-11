@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bi162iairg7h2"]
+
+[resource]
+resource_name = "chain"
+cull_mode = 2
+roughness = 0.5

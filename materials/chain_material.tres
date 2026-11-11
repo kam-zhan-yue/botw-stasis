@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c3yy46mi0dc4t"]
+
+[ext_resource type="Shader" uid="uid://bh1g8qoq1kujp" path="res://shaders/stasis_chain.gdshader" id="1_s6kdp"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_s6kdp")
+shader_parameter/base_color = Color(0.9641667, 1, 0.57, 1)
+shader_parameter/emission_color = Color(1, 0.8506667, 0.36, 1)
+shader_parameter/emission_amount = 3.75
+shader_parameter/alpha = 0.8

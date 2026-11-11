@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cejjvtmixl1eb"]
+
+[ext_resource type="Script" uid="uid://dxuophksd3wkk" path="res://scripts/stasis_effect.gd" id="1_fims6"]
+[ext_resource type="PackedScene" uid="uid://x2di5jssx2dy" path="res://scenes/stasis_chain.tscn" id="2_oflsg"]
+
+[node name="StasisEffect" type="Node3D" unique_id=838569199]
+script = ExtResource("1_fims6")
+chain_scene = ExtResource("2_oflsg")
+num_chains = 10
+fade_duration = 2.0

@@ -2,6 +2,7 @@ class_name StasisController
 extends Node3D
 
 @export var stasis_time := 7.0
+@export var stasis_effect_scene: PackedScene
 
 var is_active := false
 var targeting: StasisTarget
@@ -17,6 +18,10 @@ func stasis() -> void:
 	if not targeting:
 		return
 	targeting.stasis(stasis_time)
+	var stasis_effect := stasis_effect_scene.instantiate() as StasisEffect
+	Services.level.add_child(stasis_effect)
+	stasis_effect.play(targeting.global_position)
+	
 
 func _physics_process(_delta: float) -> void:
 	if not is_active: return
