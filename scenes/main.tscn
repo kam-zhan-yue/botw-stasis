@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://57lf2q7ruf21" path="res://scripts/game.gd" id="1_muem4"]
 [ext_resource type="Script" uid="uid://fy8dobm7fk4r" path="res://scripts/camera_service.gd" id="2_0ld40"]
 [ext_resource type="Script" uid="uid://1d3co6nsafjm" path="res://scripts/debug_service.gd" id="2_dp3eg"]
+[ext_resource type="PackedScene" uid="uid://cejjvtmixl1eb" path="res://scenes/stasis_effect.tscn" id="2_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://cewl6h3qx55nt" path="res://scenes/debug_hit.tscn" id="3_0ld40"]
 [ext_resource type="Script" uid="uid://1157wip38vfg" path="res://scripts/level_service.gd" id="5_85g3d"]
 [ext_resource type="PackedScene" uid="uid://07aktpnskm6a" path="res://scenes/player.tscn" id="5_tipki"]
 [ext_resource type="PackedScene" uid="uid://f4yttqhbqysa" path="res://scenes/boulder.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://bwu8j2fsplai1" path="res://scenes/stasis_arrow.tscn" id="11_ya4ey"]
-[ext_resource type="Texture2D" uid="uid://crmpm8c7j73ul" path="res://materials/circle.png" id="12_eb6dy"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="13_yq6so"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="15_tel4y"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="16_qkpxi"]
@@ -28,59 +28,6 @@ glow_enabled = true
 
 [sub_resource type="Resource" id="Resource_choun"]
 script = ExtResource("16_qkpxi")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_trceg"]
-direction = Vector3(1, -1, 0)
-initial_velocity_min = -10.0
-initial_velocity_max = 10.0
-gravity = Vector3(0, 0, 0)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jkv2x"]
-albedo_color = Color(1, 1, 1, 0.7411765)
-use_particle_trails = true
-
-[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_jbj1t"]
-material = SubResource("StandardMaterial3D_jkv2x")
-
-[sub_resource type="Curve" id="Curve_eb6dy"]
-_limits = [-8.792923, 0.0, 0.0, 1.0]
-_data = [Vector2(0, -8.792923), 0.0, 0.0, 0, 0, Vector2(0.89037436, -8.792923), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_trceg"]
-curve = SubResource("Curve_eb6dy")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eb6dy"]
-direction = Vector3(0, 0, 0)
-radial_velocity_min = 1.9999776
-radial_velocity_max = 4.9999776
-velocity_limit_curve = SubResource("CurveTexture_trceg")
-gravity = Vector3(0, 0, 0)
-radial_accel_min = -2.2351742e-06
-radial_accel_max = -2.2351742e-06
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trceg"]
-transparency = 1
-albedo_color = Color(0.89, 0.84104997, 0.62299997, 0.2)
-albedo_texture = ExtResource("12_eb6dy")
-emission_enabled = true
-emission = Color(0.98, 0.90160006, 0.5096, 1)
-emission_energy_multiplier = 3.96
-
-[sub_resource type="QuadMesh" id="QuadMesh_a8y0u"]
-material = SubResource("StandardMaterial3D_trceg")
-size = Vector2(0.1, 0.1)
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a8y0u"]
-direction = Vector3(0, 1, 0)
-initial_velocity_min = 10.0
-initial_velocity_max = 10.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jbj1t"]
-use_particle_trails = true
-
-[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_muem4"]
-material = SubResource("StandardMaterial3D_jbj1t")
 
 [node name="Game" type="Node3D" unique_id=1929788139]
 script = ExtResource("1_muem4")
@@ -156,33 +103,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0207319, 3.0194714)
 mass = 200.0
 stasis_arrow_scene = ExtResource("11_ya4ey")
 
-[node name="InwardBurst" type="GPUParticles3D" parent="Boulder" unique_id=307616632]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1257086, 0)
-visible = false
-amount = 2
-sub_emitter = NodePath("../OutwardBurst")
-lifetime = 2.0
-explosiveness = 1.0
-trail_enabled = true
-process_material = SubResource("ParticleProcessMaterial_trceg")
-draw_pass_1 = SubResource("RibbonTrailMesh_jbj1t")
-
-[node name="OutwardBurst" type="GPUParticles3D" parent="Boulder" unique_id=209228979]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1257086, 0)
-visible = false
-emitting = false
-amount = 100
-one_shot = true
-explosiveness = 1.0
-transform_align = 1
-process_material = SubResource("ParticleProcessMaterial_eb6dy")
-draw_pass_1 = SubResource("QuadMesh_a8y0u")
+[node name="StasisEffect" parent="Boulder" unique_id=838569199 instance=ExtResource("2_eb6dy")]
 
 [node name="Stasis" type="Node3D" parent="Boulder" unique_id=1784249161]
-
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Boulder" unique_id=1853944851]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.858748, 0)
-trail_enabled = true
-trail_lifetime = 0.9
-process_material = SubResource("ParticleProcessMaterial_a8y0u")
-draw_pass_1 = SubResource("RibbonTrailMesh_muem4")
