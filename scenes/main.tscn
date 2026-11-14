@@ -104,5 +104,3 @@ mass = 200.0
 stasis_arrow_scene = ExtResource("11_ya4ey")
 
 [node name="StasisEffect" parent="Boulder" unique_id=838569199 instance=ExtResource("2_eb6dy")]
-
-[node name="Stasis" type="Node3D" parent="Boulder" unique_id=1784249161]

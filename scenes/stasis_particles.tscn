@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cwdiursh6iu3u" path="res://scripts/stasis_particles.gd" id="1_3qawi"]
 [ext_resource type="Texture2D" uid="uid://crmpm8c7j73ul" path="res://materials/circle.png" id="2_00l75"]
+[ext_resource type="Texture2D" uid="uid://brll0y3fs583h" path="res://materials/hit_material.png" id="3_00l75"]
 
 [sub_resource type="Curve" id="Curve_trceg"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.25919116, 0.28755367), 0.0, 0.0, 0, 0, Vector2(0.6158088, 0), 0.0, 0.0, 0, 0]
@@ -45,10 +46,17 @@ emission = Color(5.4639597, 4.6496544, 1.7056293, 1)
 material = SubResource("StandardMaterial3D_3qawi")
 size = Vector2(0.2, 2)
 
+[sub_resource type="Curve" id="Curve_rdwl8"]
+_data = [Vector2(0, 0.99559474), 0.0, 0.0, 0, 0, Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(2e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.63786757, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_00l75"]
+curve = SubResource("Curve_rdwl8")
+
 [sub_resource type="Curve" id="Curve_eb6dy"]
 _limits = [-8.792923, 0.0, 0.0, 1.0]
-_data = [Vector2(0, -8.792923), 0.0, 0.0, 0, 0, Vector2(0.89037436, -8.792923), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, -8.792923), 0.0, 0.0, 0, 0, Vector2(0.4724264, -8.792923), 0.0, 0.0, 0, 0, Vector2(0.7904411, -1.0071189), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_trceg"]
 curve = SubResource("Curve_eb6dy")
@@ -61,9 +69,13 @@ velocity_limit_curve = SubResource("CurveTexture_trceg")
 gravity = Vector3(0, 0, 0)
 radial_accel_min = -2.2351742e-06
 radial_accel_max = -2.2351742e-06
+alpha_curve = SubResource("CurveTexture_00l75")
+sub_emitter_mode = 4
+sub_emitter_amount_at_start = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_trceg"]
 transparency = 1
+vertex_color_use_as_albedo = true
 albedo_color = Color(0.89, 0.84104997, 0.62299997, 0.2)
 albedo_texture = ExtResource("2_00l75")
 emission_enabled = true
@@ -74,15 +86,46 @@ emission_energy_multiplier = 3.96
 material = SubResource("StandardMaterial3D_trceg")
 size = Vector2(0.1, 0.1)
 
-[node name="StasisParticles" type="Node3D" unique_id=768382227 node_paths=PackedStringArray("stasis_inward_particles", "stasis_outward_particles")]
+[sub_resource type="Curve" id="Curve_0r15h"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6305147, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_crw8a"]
+curve = SubResource("Curve_0r15h")
+
+[sub_resource type="Curve" id="Curve_00l75"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4705882, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_onjja"]
+curve = SubResource("Curve_00l75")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hpuit"]
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_onjja")
+alpha_curve = SubResource("CurveTexture_crw8a")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v3mpf"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_00l75")
+emission_enabled = true
+emission = Color(1.932, 1.872, 0.142, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_onjja"]
+material = SubResource("StandardMaterial3D_v3mpf")
+size = Vector2(4, 4)
+
+[node name="StasisParticles" type="Node3D" unique_id=768382227 node_paths=PackedStringArray("stasis_inward_particles", "stasis_outward_particles", "stasis_hit_particles")]
 script = ExtResource("1_3qawi")
 stasis_inward_particles = NodePath("InwardBurst")
 stasis_outward_particles = NodePath("OutwardBurst")
+stasis_hit_particles = NodePath("HitBurst")
 
 [node name="InwardBurst" type="GPUParticles3D" parent="." unique_id=1356496502]
 emitting = false
 amount = 30
-sub_emitter = NodePath("../OutwardBurst")
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
@@ -94,9 +137,20 @@ draw_pass_1 = SubResource("QuadMesh_00l75")
 [node name="OutwardBurst" type="GPUParticles3D" parent="." unique_id=1766847406]
 emitting = false
 amount = 100
+lifetime = 0.8
 one_shot = true
 explosiveness = 1.0
 transform_align = 1
 transform_align_channel_filter = 1
 process_material = SubResource("ParticleProcessMaterial_eb6dy")
 draw_pass_1 = SubResource("QuadMesh_a8y0u")
+
+[node name="HitBurst" type="GPUParticles3D" parent="." unique_id=1710063869]
+emitting = false
+amount = 1
+lifetime = 0.8
+one_shot = true
+transform_align = 1
+transform_align_channel_filter = 1
+process_material = SubResource("ParticleProcessMaterial_hpuit")
+draw_pass_1 = SubResource("QuadMesh_onjja")

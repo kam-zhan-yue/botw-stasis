@@ -3,6 +3,7 @@ extends Node3D
 
 @export var mouse_sensitivity := 5
 @export var tween_time := 0.2
+@export var target_follow_offset := -1.0
 
 var initial_spring_length := 0.0
 var initial_follow_offset := Vector3.ZERO
@@ -36,7 +37,7 @@ func lerp_spring_length(length: float) -> void:
 		spring_tween.kill()
 
 	var follow_offset := initial_follow_offset
-	follow_offset.x = 0 # TODO: Fix this later
+	follow_offset.x = target_follow_offset # TODO: Fix this later
 
 	spring_tween = create_tween()
 	spring_tween.set_parallel(true)
