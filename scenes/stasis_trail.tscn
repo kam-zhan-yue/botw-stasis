@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dm2c5yb8hwas6"]
+
+[sub_resource type="Curve" id="Curve_eb6dy"]
+_data = [Vector2(0, 0.1338582), 0.0, 0.0, 0, 0, Vector2(0.4933555, 0.5472441), 0.0, 0.0, 0, 0, Vector2(1, 0.09842515), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_a8y0u"]
+offsets = PackedFloat32Array(0, 0.5034722, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Trail" type="Trail3D" unique_id=486969577]
+custom_aabb = AABB(-0.3, -0.3, -0.3, 0.6, 0.6, 0.6)
+lifetime = 0.5
+width_curve = SubResource("Curve_eb6dy")
+color = Color(2.6726522, 2.6726522, 2.6726522, 1)
+color_gradient = SubResource("Gradient_a8y0u")

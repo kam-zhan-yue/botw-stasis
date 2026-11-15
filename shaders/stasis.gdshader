@@ -50,25 +50,25 @@ vec3 get_noise_color(float x, vec2 uv) {
 void fragment() {
   vec3 target_color;
   if (state == 0) {
-    target_color = vec3(0.0);
+	target_color = vec3(0.0);
   } else if (state == 1) {
-    target_color = active_color;
+	target_color = active_color;
   } else if (state == 2) {
-    target_color = highlight_color;
+	target_color = highlight_color;
   } else {
-    target_color = mix(stasis_start_color, stasis_end_color, stasis_weight);
+	target_color = mix(stasis_start_color, stasis_end_color, stasis_weight);
   }
 
   if (state != 0) {
-    float fresnel_amount = fresnel(NORMAL,  VIEW, fresnel_power);
-    target_color *= fresnel_amount * emission;
+	float fresnel_amount = fresnel(NORMAL,  VIEW, fresnel_power);
+	target_color *= fresnel_amount * emission;
 
-    float border_fresnel_amount = fresnel(NORMAL, VIEW, border_fresnel_power);
-    target_color += border_color * border_fresnel_amount * border_emission;
+	float border_fresnel_amount = fresnel(NORMAL, VIEW, border_fresnel_power);
+	target_color += border_color * border_fresnel_amount * border_emission;
   }
 
   if (state == 3) {
-    target_color += get_noise_color(stasis_elapsed_time, UV);
+	target_color += get_noise_color(stasis_elapsed_time, UV);
   }
 
   ALBEDO = base_color.rgb;

@@ -11,7 +11,6 @@ var spring_tween: Tween
 var pcam: PhantomCamera3D
 
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Services.on_init.connect(_inject)
 
 func _inject() -> void:

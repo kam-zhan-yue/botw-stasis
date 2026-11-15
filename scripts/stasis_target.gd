@@ -7,6 +7,7 @@ enum State { Idle, Active, Highlight, Stasis }
 @export var hurtbox: Hurtbox
 @export var rigidbody: RigidBody3D
 @export var max_visual_force := 5000.0
+@export var stasis_trail: Trail3D
 
 @export var stasis_effect_scene: PackedScene
 @export var stasis_release_scene: PackedScene
@@ -95,13 +96,24 @@ func _on_hit(hit: Hit) -> void:
 	var direction := global_position - hit.origin_point
 	stasis_launch_magnitude += hit.magnitude;
 	stasis_launch_direction = direction.normalized()
-	var stasis_weight = min(stasis_launch_magnitude / max_visual_force, 1.0)
+
+	var stasis_weight = _get_stasis_weight()
 	shader_material.set_shader_parameter("stasis_weight", stasis_weight)
 
+	_update_stasis_arrow(_get_stasis_color())
+
+func _get_stasis_weight() -> float:
+	var stasis_weight = min(stasis_launch_magnitude / max_visual_force, 1.0)
+	return stasis_weight
+
+
+func _get_stasis_color() -> Color:
+	var stasis_weight = _get_stasis_weight()
 	var stasis_start_color = shader_material.get_shader_parameter("stasis_start_color")
 	var stasis_end_color = shader_material.get_shader_parameter("stasis_end_color")
 	var stasis_color := lerp(stasis_start_color, stasis_end_color, stasis_weight) as Color
-	_update_stasis_arrow(stasis_color)
+	return stasis_color
+
 
 func _update_stasis_arrow(color: Color) -> void:
 	if stasis_arrow == null:

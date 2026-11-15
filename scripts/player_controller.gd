@@ -4,10 +4,10 @@ extends CharacterBody3D
 enum State { Normal, Attacking, Aiming }
 enum AttackIndex { One, Two, Three, End }
 
-@onready var camera_controller := %CameraController as CameraController
-@onready var stasis_controller := %StasisController as StasisController
-@onready var animation_tree := %AnimationTree as AnimationTree
-@onready var sword := %Sword as Sword
+@onready var camera_controller: CameraController = %CameraController
+@onready var stasis_controller: StasisController = %StasisController
+@onready var animation_tree: AnimationTree = %AnimationTree
+@onready var sword: Sword = %Sword
 
 @export var move_speed := 10.0
 @export var attack_cooldown_interval := 1.0

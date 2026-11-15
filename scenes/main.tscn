@@ -3,12 +3,11 @@
 [ext_resource type="Script" uid="uid://57lf2q7ruf21" path="res://scripts/game.gd" id="1_muem4"]
 [ext_resource type="Script" uid="uid://fy8dobm7fk4r" path="res://scripts/camera_service.gd" id="2_0ld40"]
 [ext_resource type="Script" uid="uid://1d3co6nsafjm" path="res://scripts/debug_service.gd" id="2_dp3eg"]
-[ext_resource type="PackedScene" uid="uid://cejjvtmixl1eb" path="res://scenes/stasis_effect.tscn" id="2_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://cewl6h3qx55nt" path="res://scenes/debug_hit.tscn" id="3_0ld40"]
 [ext_resource type="Script" uid="uid://1157wip38vfg" path="res://scripts/level_service.gd" id="5_85g3d"]
 [ext_resource type="PackedScene" uid="uid://07aktpnskm6a" path="res://scenes/player.tscn" id="5_tipki"]
+[ext_resource type="Script" uid="uid://l1jmp38w5fj3" path="res://scripts/input_service.gd" id="6_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://f4yttqhbqysa" path="res://scenes/boulder.tscn" id="7_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://bwu8j2fsplai1" path="res://scenes/stasis_arrow.tscn" id="11_ya4ey"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="13_yq6so"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="15_tel4y"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="16_qkpxi"]
@@ -50,6 +49,10 @@ debug_hit_scene = ExtResource("3_0ld40")
 unique_name_in_owner = true
 script = ExtResource("5_85g3d")
 metadata/_custom_type_script = "uid://1157wip38vfg"
+
+[node name="InputService" type="Node3D" parent="Services" unique_id=1188962679]
+unique_name_in_owner = true
+script = ExtResource("6_eb6dy")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1326569110]
 environment = SubResource("Environment_h2yge")
@@ -101,6 +104,3 @@ collision_mask = 4
 [node name="Boulder" parent="." unique_id=1052606398 instance=ExtResource("7_o6xl0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0207319, 3.0194714)
 mass = 200.0
-stasis_arrow_scene = ExtResource("11_ya4ey")
-
-[node name="StasisEffect" parent="Boulder" unique_id=838569199 instance=ExtResource("2_eb6dy")]

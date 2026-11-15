@@ -6,6 +6,42 @@
 [ext_resource type="Script" uid="uid://dkek4j7ifomyu" path="res://scripts/hurtbox.gd" id="3_8hte1"]
 [ext_resource type="PackedScene" uid="uid://bwveinmxy45jr" path="res://scenes/stasis_release_particles.tscn" id="3_xsdet"]
 [ext_resource type="PackedScene" uid="uid://bwu8j2fsplai1" path="res://scenes/stasis_arrow.tscn" id="4_hs4d4"]
+[ext_resource type="PackedScene" uid="uid://dm2c5yb8hwas6" path="res://scenes/stasis_trail.tscn" id="5_xsdet"]
+
+[sub_resource type="Shader" id="Shader_xsdet"]
+code = "
+shader_type spatial;
+render_mode blend_mix, depth_draw_never, unshaded, cull_disabled;
+
+uniform float brightness = 5.0;
+
+void vertex() {
+	// Billboarding code for trails
+	// CUSTOM0 contains the tangent of the trail and the width
+	if (dot(CUSTOM0.xyz, CUSTOM0.xyz) > 0.0) {
+		vec3 p = (inverse(MODELVIEW_MATRIX) * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
+		p = VERTEX - p;
+		vec3 t = CUSTOM0.xyz;
+		vec3 binormal = normalize(cross(p, t));
+		vec3 normal = normalize(cross(t, binormal));
+		vec3 tangent = normalize(cross(binormal, normal));
+		VERTEX += CUSTOM0.w * binormal;
+		NORMAL = normal;
+		TANGENT = tangent;
+		BINORMAL = binormal;
+	}
+}
+
+void fragment() {
+	ALBEDO = COLOR.rgb * brightness;
+	ALPHA = COLOR.a;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hs4d4"]
+render_priority = 0
+shader = SubResource("Shader_xsdet")
+shader_parameter/brightness = 5.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ycdy4"]
 radius = 1.2
@@ -53,6 +89,12 @@ rigidbody = NodePath(".")
 stasis_effect_scene = ExtResource("2_c7t8v")
 stasis_release_scene = ExtResource("3_xsdet")
 stasis_arrow_scene = ExtResource("4_hs4d4")
+
+[node name="Trail" parent="." unique_id=486969577 instance=ExtResource("5_xsdet")]
+custom_aabb = AABB(-0.3, -0.3, -7.5596437, 1.9101598, 0.6, 7.859644)
+color = Color(1.8309997, 0.84857106, 0.29335716, 1)
+material_mode = 2
+material = SubResource("ShaderMaterial_hs4d4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2032081907]
 shape = SubResource("SphereShape3D_ycdy4")

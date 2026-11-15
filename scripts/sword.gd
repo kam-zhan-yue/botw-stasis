@@ -4,8 +4,8 @@ extends Node3D
 @export var hit_magnitude := 10.0
 @export var hit_particles_scene: PackedScene
 
-@onready var hitbox := %Hitbox as Hitbox
-@onready var shape := %ShapeCast3D as ShapeCast3D
+@onready var hitbox: Hitbox = %Hitbox
+@onready var shape: ShapeCast3D = %ShapeCast3D
 
 var collision_ids: Array[int]
 var is_active := false
