@@ -13,7 +13,6 @@ enum AttackIndex { One, Two, Three, End }
 @export var attack_cooldown_interval := 1.0
 @export var attack_hitbox_enable := 0.3
 @export var attackable_interval := 0.5
-@export var stasis_spring_length := 1.5
 
 var input_move_vector: Vector2
 
@@ -106,8 +105,9 @@ func _rotate_to(direction: Vector3, delta: float) -> void:
 
 
 func _get_move_vector() -> Vector3:
-	var forward := camera_controller.pcam.global_basis.z
-	var right := -camera_controller.pcam.global_basis.x
+	var camera := Services.camera.camera
+	var forward := camera.global_basis.z
+	var right := -camera.global_basis.x
 
 	forward.y = 0.0
 	right.y = 0.0
@@ -137,12 +137,12 @@ func _reset_attack() -> void:
 func _aim() -> void:
 	state = State.Aiming
 	stasis_controller.set_active(true)
-	camera_controller.lerp_spring_length(stasis_spring_length)
+	camera_controller.switch_mode(CameraController.Mode.Shoulder)
 
 func _aim_end() -> void:
 	state = State.Normal
 	stasis_controller.set_active(false)
-	camera_controller.reset_spring_length()
+	camera_controller.switch_mode(CameraController.Mode.ThirdPerson)
 
 func _stasis() -> void:
 	stasis_controller.stasis()
