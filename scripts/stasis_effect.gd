@@ -16,8 +16,7 @@ extends Node3D
 var chains: Array[StasisChain]
 var tween: Tween
 
-func play(target: Vector3) -> void:
-	global_position = target
+func play() -> void:
 	await _play_effect()
 	_cleanup()
 

@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://f4yttqhbqysa"]
 
 [ext_resource type="Script" uid="uid://u6dx535k4yko" path="res://scripts/stasis_target.gd" id="1_wye2t"]
+[ext_resource type="PackedScene" uid="uid://cejjvtmixl1eb" path="res://scenes/stasis_effect.tscn" id="2_c7t8v"]
 [ext_resource type="Shader" uid="uid://hj4ubu6oyop1" path="res://shaders/stasis.gdshader" id="2_jrtjv"]
 [ext_resource type="Script" uid="uid://dkek4j7ifomyu" path="res://scripts/hurtbox.gd" id="3_8hte1"]
+[ext_resource type="PackedScene" uid="uid://bwveinmxy45jr" path="res://scenes/stasis_release_particles.tscn" id="3_xsdet"]
+[ext_resource type="PackedScene" uid="uid://bwu8j2fsplai1" path="res://scenes/stasis_arrow.tscn" id="4_hs4d4"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ycdy4"]
 radius = 1.2
@@ -47,6 +50,9 @@ script = ExtResource("1_wye2t")
 mesh_instance = NodePath("CSGSphere3D")
 hurtbox = NodePath("Hurtbox")
 rigidbody = NodePath(".")
+stasis_effect_scene = ExtResource("2_c7t8v")
+stasis_release_scene = ExtResource("3_xsdet")
+stasis_arrow_scene = ExtResource("4_hs4d4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2032081907]
 shape = SubResource("SphereShape3D_ycdy4")

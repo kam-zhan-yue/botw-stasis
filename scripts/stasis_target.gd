@@ -7,6 +7,9 @@ enum State { Idle, Active, Highlight, Stasis }
 @export var hurtbox: Hurtbox
 @export var rigidbody: RigidBody3D
 @export var max_visual_force := 5000.0
+
+@export var stasis_effect_scene: PackedScene
+@export var stasis_release_scene: PackedScene
 @export var stasis_arrow_scene: PackedScene
 
 var shader_material: ShaderMaterial
@@ -56,6 +59,8 @@ func stasis(time: float) -> void:
 	rigidbody.freeze = true
 	rigidbody.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
 
+	_play_stasis_start_particles()
+
 	await Global.seconds(time)
 	
 	_set_state(State.Idle)
@@ -64,6 +69,20 @@ func stasis(time: float) -> void:
 	shader_material.set_shader_parameter("stasis_weight", 0)
 	_clear_stasis_arrow()
 	_apply_stasis_vector()
+	_play_stasis_end_particles()
+
+func _play_stasis_start_particles() -> void:
+	var stasis_effect := stasis_effect_scene.instantiate() as StasisEffect
+	Services.level.add_child(stasis_effect)
+	stasis_effect.global_position = global_position
+	stasis_effect.play()
+
+func _play_stasis_end_particles() -> void:
+	var particles := stasis_release_scene.instantiate() as ParticlePlayer
+	Services.level.add_child(particles)
+	particles.global_position = global_position
+	particles.play()
+
 
 func _set_state(new_state: State) -> void:
 	state = new_state
