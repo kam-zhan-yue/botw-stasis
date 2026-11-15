@@ -3,6 +3,9 @@ extends Node3D
 
 enum State { Idle, Active, Highlight, Stasis }
 
+@export var flash_interval_curve: Curve
+@export var flash_interval := 2.0
+@export var flash_duration := 0.2
 @export var mesh_instance: CSGSphere3D
 @export var hurtbox: Hurtbox
 @export var rigidbody: RigidBody3D
@@ -17,6 +20,9 @@ var shader_material: ShaderMaterial
 
 var state := State.Idle
 
+var flash_timer := 0.0
+var flash_duration_timer := 0.0
+var stasis_duration := 0.0
 var stasis_elapsed_time := 0.0
 var stasis_launch_magnitude := 0.0
 var stasis_launch_direction := Vector3.ZERO
@@ -46,16 +52,37 @@ func set_highlighted(value: bool) -> void:
 		_set_state(State.Active)
 
 func _process(delta: float) -> void:
-	if state == State.Stasis:
-		stasis_elapsed_time += delta
-		shader_material.set_shader_parameter("stasis_elapsed_time", stasis_elapsed_time)
+	if state != State.Stasis:
+		return
+
+	stasis_elapsed_time += delta
+	shader_material.set_shader_parameter("stasis_elapsed_time", stasis_elapsed_time)
+
+	var progress := clampf(stasis_elapsed_time / stasis_duration, 0.0, 1.0)
+	var multiplier := flash_interval_curve.sample(progress)
+	var current_interval := flash_interval * multiplier
+	var current_duration := flash_duration * multiplier
+
+	flash_timer += delta
+	if flash_timer >= current_interval:
+		flash_timer -= current_interval
+		flash_duration_timer = current_duration
+
+	flash_duration_timer -= delta
+	var stasis_color = _get_stasis_color()
+	shader_material.set_shader_parameter("flashing_color", stasis_color)
+	shader_material.set_shader_parameter("flashing", flash_duration_timer > 0.0)
+
 
 func stasis(time: float) -> void:
 	_set_state(State.Stasis)
 
+	flash_timer = 0.0
+	flash_duration_timer = 0.0
 	stasis_launch_magnitude = 0.0
 	stasis_elapsed_time = 0.0
 	stasis_launch_direction = Vector3.ZERO
+	stasis_duration = time
 	shader_material.set_shader_parameter("stasis_weight", 0)
 	rigidbody.freeze = true
 	rigidbody.freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
@@ -68,6 +95,7 @@ func stasis(time: float) -> void:
 
 	rigidbody.freeze = false
 	shader_material.set_shader_parameter("stasis_weight", 0)
+	shader_material.set_shader_parameter("flashing", false)
 	_clear_stasis_arrow()
 	_apply_stasis_vector()
 	_play_stasis_end_particles()

@@ -2,11 +2,15 @@ shader_type spatial;
 
 uniform int state : hint_enum("Idle", "Active", "Highlight", "Stasis") = 0;
 
+// Flashing
+uniform bool flashing = false;
+
 // Colors
 uniform vec3 base_color : source_color = vec3(1.0);
 uniform vec3 active_color : source_color = vec3(1.0);
 uniform vec3 highlight_color : source_color = vec3(1.0);
 uniform vec3 border_color : source_color = vec3(1.0);
+uniform vec3 flashing_color : source_color = vec3(1.0);
 
 // Stasis
 uniform vec3 stasis_start_color : source_color = vec3(1.0);
@@ -69,6 +73,10 @@ void fragment() {
 
   if (state == 3) {
 	target_color += get_noise_color(stasis_elapsed_time, UV);
+  }
+
+  if (flashing) {
+	target_color += flashing_color;
   }
 
   ALBEDO = base_color.rgb;

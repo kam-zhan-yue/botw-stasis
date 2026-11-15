@@ -8,6 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://bwu8j2fsplai1" path="res://scenes/stasis_arrow.tscn" id="4_hs4d4"]
 [ext_resource type="PackedScene" uid="uid://dm2c5yb8hwas6" path="res://scenes/stasis_trail.tscn" id="5_xsdet"]
 
+[sub_resource type="Curve" id="Curve_hs4d4"]
+_data = [Vector2(0, 1), 0.0, -0.35551253, 0, 0, Vector2(1, 0.23228341), -2.0966096, 0.0, 0, 0]
+point_count = 2
+
 [sub_resource type="Shader" id="Shader_xsdet"]
 code = "
 shader_type spatial;
@@ -59,10 +63,12 @@ seamless = true
 render_priority = 0
 shader = ExtResource("2_jrtjv")
 shader_parameter/state = 0
+shader_parameter/flashing = false
 shader_parameter/base_color = Color(1, 1, 1, 1)
 shader_parameter/active_color = Color(1, 1, 0.34509805, 1)
 shader_parameter/highlight_color = Color(0.20392157, 1, 0.2627451, 1)
 shader_parameter/border_color = Color(1, 1, 1, 1)
+shader_parameter/flashing_color = Color(1.353256, 1.1103152, 0.312081, 1)
 shader_parameter/stasis_start_color = Color(1, 1, 0.34509805, 1)
 shader_parameter/stasis_end_color = Color(1, 0.20000005, 0, 1)
 shader_parameter/stasis_weight = 0.6
@@ -83,6 +89,8 @@ radius = 1.2
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_wye2t")
+flash_interval_curve = SubResource("Curve_hs4d4")
+flash_interval = 1.0
 mesh_instance = NodePath("CSGSphere3D")
 hurtbox = NodePath("Hurtbox")
 rigidbody = NodePath(".")
@@ -91,7 +99,6 @@ stasis_release_scene = ExtResource("3_xsdet")
 stasis_arrow_scene = ExtResource("4_hs4d4")
 
 [node name="Trail" parent="." unique_id=486969577 instance=ExtResource("5_xsdet")]
-custom_aabb = AABB(-0.3, -0.3, -7.5596437, 1.9101598, 0.6, 7.859644)
 color = Color(1.8309997, 0.84857106, 0.29335716, 1)
 material_mode = 2
 material = SubResource("ShaderMaterial_hs4d4")
