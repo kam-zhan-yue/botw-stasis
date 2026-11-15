@@ -2,6 +2,7 @@ class_name Sword
 extends Node3D
 
 @export var hit_magnitude := 10.0
+@export var hit_particles_scene: PackedScene
 
 @onready var hitbox := %Hitbox as Hitbox
 @onready var shape := %ShapeCast3D as ShapeCast3D
@@ -39,6 +40,13 @@ func _process_collision(i: int) -> void:
 	collision_ids.append(hurtbox_id)
 	var collision_point = shape.get_collision_point(i)
 	# Services.debug.hit(collision_point)
+	_play_particles(collision_point)
 
 	var hit = Hit.new(hit_magnitude, collision_point)
 	hurtbox.hit(hit)
+
+func _play_particles(target: Vector3) -> void:
+	var particles := hit_particles_scene.instantiate() as ParticlePlayer
+	Services.level.add_child(particles)
+	particles.global_position = target
+	particles.play()

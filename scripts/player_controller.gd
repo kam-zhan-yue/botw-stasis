@@ -11,8 +11,7 @@ enum AttackIndex { One, Two, Three, End }
 
 @export var move_speed := 10.0
 @export var attack_cooldown_interval := 1.0
-@export var attack_hitbox_enable_interval_max := 1.2
-@export var attack_hitbox_enable_interval_min := 0.5
+@export var attack_hitbox_enable := 0.3
 @export var attackable_interval := 0.5
 @export var stasis_spring_length := 1.5
 
@@ -44,8 +43,8 @@ func _process_attack(delta: float) -> void:
 	if attack_cooldown_timer >= 0.0:
 		attack_cooldown_timer -= delta
 
-	if (attack_cooldown_timer >= attack_hitbox_enable_interval_min 
-		and attack_cooldown_timer <= attack_hitbox_enable_interval_max 
+	var is_attack_interval := attack_cooldown_interval - attack_cooldown_timer >= attack_hitbox_enable
+	if (is_attack_interval
 		and state == State.Attacking):
 		sword.set_active(true)
 	else:
