@@ -128,7 +128,7 @@ func _on_hit(hit: Hit) -> void:
 	var stasis_weight = _get_stasis_weight()
 	shader_material.set_shader_parameter("stasis_weight", stasis_weight)
 
-	_update_stasis_arrow(_get_stasis_color())
+	_update_stasis_arrow()
 
 func _get_stasis_weight() -> float:
 	var stasis_weight = min(stasis_launch_magnitude / max_visual_force, 1.0)
@@ -143,13 +143,14 @@ func _get_stasis_color() -> Color:
 	return stasis_color
 
 
-func _update_stasis_arrow(color: Color) -> void:
+func _update_stasis_arrow() -> void:
 	if stasis_arrow == null:
 		stasis_arrow = stasis_arrow_scene.instantiate() as StasisArrow
 		add_child(stasis_arrow)
 		stasis_arrow.init()
 	stasis_arrow.update_direction(stasis_launch_direction.normalized())
-	stasis_arrow.update_color(color)
+	stasis_arrow.update_color(_get_stasis_color())
+	stasis_arrow.update_scale(_get_stasis_weight())
 
 func _clear_stasis_arrow() -> void:
 	if stasis_arrow != null:

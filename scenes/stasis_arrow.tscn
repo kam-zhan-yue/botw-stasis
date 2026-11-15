@@ -4,20 +4,29 @@
 [ext_resource type="PackedScene" uid="uid://bm4lvg6bgnqic" path="res://models/stasis-arrow.blend" id="2_350nl"]
 [ext_resource type="Shader" uid="uid://dfibkoqqkdr0h" path="res://shaders/stasis_arrow.gdshader" id="2_yk4hp"]
 
+[sub_resource type="Curve" id="Curve_ya4ey"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nn3ka"]
 render_priority = 0
 shader = ExtResource("2_yk4hp")
-shader_parameter/arrow_color = Color(1, 1, 1, 1)
+shader_parameter/base_color = Color(1, 1, 1, 1)
 shader_parameter/alpha = 0.5
 
 [node name="StasisArrow" type="Node3D" unique_id=92216853 node_paths=PackedStringArray("mesh_instance")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 script = ExtResource("1_xdr3g")
+_editor_progress = 1.0
 mesh_instance = NodePath("model/Cube")
+scale_animation_time = 0.2
+max_scale = 1.5
+scale_curve = SubResource("Curve_ya4ey")
 
 [node name="model" parent="." unique_id=712892776 instance=ExtResource("2_350nl")]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
-[node name="Cube" parent="model" index="0" unique_id=1577355901]
+[node name="Cube" parent="model" index="0" unique_id=946943997]
 surface_material_override/0 = SubResource("ShaderMaterial_nn3ka")
 
 [editable path="model"]

@@ -82,10 +82,11 @@ size = Vector3(20, 0.1, 20)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=589367419]
 physics_interpolation_mode = 1
-transform = Transform3D(-1, 0, 0, 0, 0.9723699, 0.23344538, 0, 0.23344538, -0.9723699, 0, 2.459405, -2.430925)
+transform = Transform3D(-1, 0, 0, 0, 0.9723699, 0.23344533, 0, 0.23344533, -0.9723699, 0, 2.5761275, -2.91711)
 top_level = true
 
 [node name="ThirdPersonCamera" type="Node3D" parent="Camera3D" unique_id=1934427487 node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0)
 script = ExtResource("15_tel4y")
 priority = 10
 follow_mode = 6
@@ -93,16 +94,16 @@ follow_target = NodePath("../../Player")
 tween_resource = SubResource("Resource_choun")
 follow_offset = Vector3(0, 1.735, 0)
 follow_damping = true
-follow_distance = 2.5
+follow_distance = 3.0
 vertical_rotation_offset = 2.905973204570558
-spring_length = 2.5
+spring_length = 3.0
 align_transform_with_view = Callable()
 align_position_with_view = Callable()
 align_rotation_with_view = Callable()
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="ShoulderCamera" type="Node3D" parent="Camera3D" unique_id=1821949531 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, -4.4703484e-08, 0, 4.4703484e-08, 0.99999994, 0.695, 0, -1.3250003)
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, -1.7881393e-07, 0, 1.937151e-07, 0.9999999, 0.695, -3.5762787e-07, -1.4999998)
 script = ExtResource("15_tel4y")
 follow_mode = 6
 follow_target = NodePath("../../Player")
@@ -110,9 +111,9 @@ tween_resource = SubResource("Resource_choun")
 follow_offset = Vector3(-0.695, 1.735, 0)
 follow_damping = true
 follow_damping_value = Vector3(0, 0, 0)
-follow_distance = 1.175
+follow_distance = 1.5
 vertical_rotation_offset = 2.905973204570558
-spring_length = 1.175
+spring_length = 1.5
 align_transform_with_view = Callable()
 align_position_with_view = Callable()
 align_rotation_with_view = Callable()

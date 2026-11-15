@@ -2,7 +2,7 @@
 class_name StasisEffect
 extends Node3D
 
-@export_tool_button("Play", "Callable") var debug_play  = _editor_play
+@export_tool_button("Play", "Callable") var debug_play = _editor_play
 
 @export var chain_scene: PackedScene
 @export var particles_scene: PackedScene

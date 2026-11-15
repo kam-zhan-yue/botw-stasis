@@ -2,6 +2,8 @@ shader_type spatial;
 
 uniform int state : hint_enum("Idle", "Active", "Highlight", "Stasis") = 0;
 
+uniform sampler2D base_texture : source_color, filter_linear_mipmap;
+
 // Flashing
 uniform bool flashing = false;
 
@@ -79,6 +81,7 @@ void fragment() {
 	target_color += flashing_color;
   }
 
-  ALBEDO = base_color.rgb;
+  vec4 tex = texture(base_texture, UV);
+  ALBEDO = tex.rgb * base_color.rgb;
   EMISSION = target_color.rgb;
 }
