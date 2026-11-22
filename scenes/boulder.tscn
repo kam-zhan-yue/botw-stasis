@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bwveinmxy45jr" path="res://scenes/stasis_release_particles.tscn" id="3_xsdet"]
 [ext_resource type="PackedScene" uid="uid://bwu8j2fsplai1" path="res://scenes/stasis_arrow.tscn" id="4_hs4d4"]
 [ext_resource type="PackedScene" uid="uid://dm2c5yb8hwas6" path="res://scenes/stasis_trail.tscn" id="5_xsdet"]
-[ext_resource type="Texture2D" uid="uid://cufx0x2xwvfgh" path="res://materials/sandy_gravel_diff_4k.jpg" id="7_hs4d4"]
+[ext_resource type="Texture2D" uid="uid://cfowc3qmqrdd" path="res://textures/grainy-concrete_albedo.png" id="7_hs4d4"]
 
 [sub_resource type="Curve" id="Curve_hs4d4"]
 _data = [Vector2(0, 1), 0.0, -0.35551253, 0, 0, Vector2(1, 0.23228341), -2.0966096, 0.0, 0, 0]
@@ -111,8 +111,8 @@ shape = SubResource("SphereShape3D_ycdy4")
 [node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=936863315]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08860803, 0)
 radius = 1.2
-radial_segments = 16
-rings = 10
+radial_segments = 24
+rings = 20
 material = SubResource("ShaderMaterial_choun")
 
 [node name="Hurtbox" type="Node3D" parent="." unique_id=903889645]

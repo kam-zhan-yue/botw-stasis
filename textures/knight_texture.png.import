@@ -2,25 +2,23 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctrcaujuysvo6"
-path.s3tc="res://.godot/imported/rogue_texture.png-7f56c5da1cf785c123f5e8a2a4b3b7ee.s3tc.ctex"
+uid="uid://cb1kiqhoqi6vp"
+path.s3tc="res://.godot/imported/knight_texture.png-a6a4236087263f8a36a73bbd24692fd9.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "e24a3d2f6e39f79ab8c3dab2f3ab950f"
-}
 
 [deps]
 
-source_file="res://materials/rogue_texture.png"
-dest_files=["res://.godot/imported/rogue_texture.png-7f56c5da1cf785c123f5e8a2a4b3b7ee.s3tc.ctex"]
+source_file="res://textures/knight_texture.png"
+dest_files=["res://.godot/imported/knight_texture.png-a6a4236087263f8a36a73bbd24692fd9.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
@@ -29,6 +27,8 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
+mipmaps/preserve_alpha_test_coverage=false
+mipmaps/alpha_test_threshold=0.5
 roughness/mode=0
 roughness/src_normal=""
 process/channel_remap/red=0

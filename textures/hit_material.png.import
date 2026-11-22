@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb1kiqhoqi6vp"
-path.s3tc="res://.godot/imported/knight_texture.png-b23f4843a2049e4c76517a453cd0030b.s3tc.ctex"
+uid="uid://brll0y3fs583h"
+path.s3tc="res://.godot/imported/hit_material.png-b068976179b7e2bad8397221b0d9d433.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,13 +11,14 @@ metadata={
 
 [deps]
 
-source_file="res://materials/knight_texture.png"
-dest_files=["res://.godot/imported/knight_texture.png-b23f4843a2049e4c76517a453cd0030b.s3tc.ctex"]
+source_file="res://textures/hit_material.png"
+dest_files=["res://.godot/imported/hit_material.png-b068976179b7e2bad8397221b0d9d433.s3tc.ctex"]
 
 [params]
 
 compress/mode=2
 compress/high_quality=false
+compress/high_quality_mode=0
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
@@ -26,6 +27,8 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
+mipmaps/preserve_alpha_test_coverage=false
+mipmaps/alpha_test_threshold=0.5
 roughness/mode=0
 roughness/src_normal=""
 process/channel_remap/red=0
