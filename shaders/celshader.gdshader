@@ -19,6 +19,7 @@ void fragment() {
 	vec3 gradient = texture(fresnel_gradient, vec2(basic_fresnel, 0.0)).rgb;
 	vec3 texture_color = texture(texture_albedo, UV).rgb;
 	ALBEDO = texture_color + basic_fresnel * gradient;
+  SPECULAR = 0.0;
 }
 
 void light() {
