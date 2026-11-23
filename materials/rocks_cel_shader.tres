@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://c6hon8pnftp4y"]
+
+[ext_resource type="Shader" uid="uid://buol2h04o2nrs" path="res://shaders/toon.gdshader" id="1_bk3ks"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_bk3ks")
+shader_parameter/albedo_color = Color(0.55, 0.41415003, 0.12100002, 1)
+shader_parameter/bands = 3
+shader_parameter/band_softness = 0.0
+shader_parameter/rim_strength = 0.5
+shader_parameter/rim_width = 0.3
+shader_parameter/specular = false
+shader_parameter/glossiness = 40.0

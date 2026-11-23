@@ -49,7 +49,7 @@ shader = SubResource("Shader_xsdet")
 shader_parameter/brightness = 5.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ycdy4"]
-radius = 1.2
+radius = 2.4
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_wye2t"]
 noise_type = 3
@@ -89,7 +89,7 @@ shader_parameter/noise_end_color = Color(0.6, 0.24480005, 0.156, 1)
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_jrtjv")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_vivmo"]
-radius = 1.2
+radius = 2.4
 
 [node name="Boulder" type="RigidBody3D" unique_id=1052606398 node_paths=PackedStringArray("mesh_instance", "hurtbox", "rigidbody")]
 collision_layer = 5
@@ -114,7 +114,7 @@ shape = SubResource("SphereShape3D_ycdy4")
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=936863315]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08860803, 0)
-radius = 1.2
+radius = 2.4
 radial_segments = 24
 rings = 20
 material = SubResource("ShaderMaterial_choun")

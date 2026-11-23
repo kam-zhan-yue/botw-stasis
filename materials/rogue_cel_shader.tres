@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://0036it1b7yl6"]
+
+[ext_resource type="Shader" uid="uid://buol2h04o2nrs" path="res://shaders/toon.gdshader" id="1_q6ppb"]
+[ext_resource type="Texture2D" uid="uid://ctrcaujuysvo6" path="res://textures/rogue_texture.png" id="2_1ina1"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_q6ppb")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("2_1ina1")
+shader_parameter/bands = 3
+shader_parameter/band_softness = 0.0
+shader_parameter/rim_strength = 0.5
+shader_parameter/rim_width = 0.3
+shader_parameter/specular = false
+shader_parameter/glossiness = 40.0
