@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://0036it1b7yl6"]
+
+[ext_resource type="Shader" uid="uid://th2d713tydxr" path="res://shaders/celshader.gdshader" id="1_q6ppb"]
+[ext_resource type="Texture2D" uid="uid://ctrcaujuysvo6" path="res://textures/rogue_texture.png" id="2_1ina1"]
+[ext_resource type="Texture2D" uid="uid://67tb5b7h1x5j" path="res://materials/cel_shading_color_gradient.tres" id="2_kmsrx"]
+[ext_resource type="Texture2D" uid="uid://cmf8h0f1rv8fe" path="res://materials/cel_shading_fresnel_gradient.tres" id="3_wnc8x"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_q6ppb")
+shader_parameter/texture_albedo = ExtResource("2_1ina1")
+shader_parameter/color_gradient = ExtResource("2_kmsrx")
+shader_parameter/fresnel_gradient = ExtResource("3_wnc8x")
+shader_parameter/fresnel_amount = 3.0

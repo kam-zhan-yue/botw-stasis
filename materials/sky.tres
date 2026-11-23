@@ -1,0 +1,15 @@
+[gd_resource type="Sky" format=3 uid="uid://deb20ibv5wmg4"]
+
+[ext_resource type="Shader" uid="uid://c3l0tx15onvnj" path="res://shaders/sky.gdshader" id="1_hu07j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxu8s"]
+shader = ExtResource("1_hu07j")
+shader_parameter/sky_color = Color(0.4790045, 0.7171805, 0.7941516, 1)
+shader_parameter/horizon_color = Color(0.82646006, 0.8658718, 0.72568125, 1)
+shader_parameter/horizon_intensity = 0.5
+shader_parameter/sun_color = Color(0.96, 0.696, 0.24, 1)
+shader_parameter/sun_size = 0.001
+shader_parameter/sun_intensity = 0.615
+
+[resource]
+sky_material = SubResource("ShaderMaterial_yxu8s")

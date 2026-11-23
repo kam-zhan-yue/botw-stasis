@@ -1,8 +1,12 @@
 shader_type spatial;
+render_mode diffuse_toon, specular_toon;
 
 uniform int state : hint_enum("Idle", "Active", "Highlight", "Stasis") = 0;
 
 uniform sampler2D base_texture : source_color, filter_linear_mipmap;
+
+// Cel Shading
+uniform sampler2D color_gradient;
 
 // Flashing
 uniform bool flashing = false;
@@ -84,4 +88,12 @@ void fragment() {
   vec4 tex = texture(base_texture, UV);
   ALBEDO = tex.rgb * base_color.rgb;
   EMISSION = target_color.rgb;
+}
+
+
+void light() {
+	float dotproduct = max(dot(NORMAL, LIGHT), 0.0);
+	float sample = clamp(dotproduct * ATTENUATION , 0.05, 0.95);
+	vec4 shaded = texture(color_gradient, vec2(sample, 0.0));
+	DIFFUSE_LIGHT = clamp((shaded.rgb * LIGHT_COLOR), 0.0, 1.0);
 }
