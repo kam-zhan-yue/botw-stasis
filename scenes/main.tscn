@@ -19,13 +19,22 @@
 [sub_resource type="Environment" id="Environment_h2yge"]
 background_mode = 2
 sky = ExtResource("7_eb6dy")
-tonemap_mode = 2
+tonemap_mode = 4
+ssao_enabled = true
+ssil_enabled = true
 glow_enabled = true
 
 [sub_resource type="Curve" id="Curve_ya4ey"]
 _limits = [0.0, 2.0, 0.0, 1.0]
 _data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(0.49833888, 1.3622047), 0.0, 0.0, 0, 0, Vector2(1, 0), -8.365001, 0.0, 0, 0]
 point_count = 3
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_14a1q"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 20.0
+dof_blur_near_enabled = true
+dof_blur_near_distance = 1.5
+dof_blur_amount = 0.03
 
 [sub_resource type="Resource" id="Resource_choun"]
 script = ExtResource("16_qkpxi")
@@ -68,43 +77,44 @@ shadow_enabled = true
 [node name="overworld_environment" parent="." unique_id=1623857444 instance=ExtResource("9_jkv2x")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
-[node name="Rocks" parent="overworld_environment" index="0" unique_id=1532043754]
+[node name="Rocks" parent="overworld_environment" index="0" unique_id=82971473]
 surface_material_override/0 = ExtResource("10_jbj1t")
 
-[node name="Rocks2" parent="overworld_environment" index="1" unique_id=248496004]
+[node name="Rocks2" parent="overworld_environment" index="1" unique_id=397527474]
 surface_material_override/0 = ExtResource("10_jbj1t")
 
-[node name="Floor" parent="overworld_environment" index="2" unique_id=276537223]
+[node name="Floor" parent="overworld_environment" index="2" unique_id=373053055]
 surface_material_override/0 = ExtResource("11_muem4")
 
-[node name="CollisionShape3D" parent="overworld_environment/Floor/StaticBody3D" parent_id_path=PackedInt32Array(1623857444, 1153269061) index="0" unique_id=800495094]
+[node name="CollisionShape3D" parent="overworld_environment/Floor/StaticBody3D" parent_id_path=PackedInt32Array(1623857444, 1223804933) index="0" unique_id=2092216112]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0.049964905, 0.13054276, 0.038101196)
 
-[node name="Tunnel" parent="overworld_environment" index="3" unique_id=124110350]
+[node name="Tunnel" parent="overworld_environment" index="3" unique_id=1351556138]
 surface_material_override/0 = ExtResource("10_jbj1t")
 
 [node name="Player" parent="." unique_id=1401220595 instance=ExtResource("5_tipki")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.4242377, 18.348888)
 
-[node name="Skeleton3D" parent="Player/rogue/Rig_Medium" parent_id_path=PackedInt32Array(1401220595, 391467329, 98244793) index="0" unique_id=941210809]
-bones/1/rotation = Quaternion(0.004416338, 0.04315904, 0.00019077283, 0.9990585)
-bones/2/rotation = Quaternion(0.9895041, 0.057715528, 0.07133634, 0.111632206)
-bones/3/rotation = Quaternion(0.33313888, 5.0981992e-08, -1.7991648e-07, 0.94287777)
-bones/4/rotation = Quaternion(-0.5688845, -0.11211077, 0.048496053, 0.8132956)
-bones/6/rotation = Quaternion(0.9953973, -0.030996999, 0.031057313, 0.0851985)
-bones/7/rotation = Quaternion(0.34363338, -4.9239414e-08, 1.941076e-07, 0.9391039)
-bones/8/rotation = Quaternion(-0.59731877, 0.11390209, -0.01470297, 0.79373825)
-bones/10/rotation = Quaternion(0.012017823, 2.6818725e-09, 0.0010402361, 0.9999273)
-bones/11/rotation = Quaternion(-0.005627925, 3.5781678e-09, -0.0004871404, 0.99998415)
-bones/12/rotation = Quaternion(-0.013643748, -0.03133471, -0.0007510505, 0.9994155)
-bones/13/rotation = Quaternion(-0.5396602, -0.10614821, -0.76157236, 0.34279293)
-bones/14/rotation = Quaternion(-3.1521743e-08, -7.3162575e-08, -0.37872332, 0.92551)
-bones/16/rotation = Quaternion(-0.22046515, -0.3428712, 0.17844, 0.8955411)
-bones/17/rotation = Quaternion(0.0025465628, 0.0025444154, -0.698009, 0.71607995)
-bones/18/rotation = Quaternion(-0.5663448, 0.031775765, 0.72769636, 0.3856189)
-bones/19/rotation = Quaternion(9.383782e-09, 4.7265207e-08, 0.39125642, 0.9202818)
-bones/21/rotation = Quaternion(-0.21078615, 0.37981334, -0.13174638, 0.891041)
-bones/22/rotation = Quaternion(0.002375265, -0.0023746924, 0.69842, 0.7156803)
+[node name="Skeleton3D" parent="Player/rogue/Rig_Medium" parent_id_path=PackedInt32Array(1401220595, 391467329, 302379434) index="0" unique_id=569228848]
+bones/1/position = Vector3(-2.3665827e-30, 0.3916858, 0)
+bones/1/rotation = Quaternion(9.9245284e-05, 0.043157756, 4.289793e-06, 0.99906826)
+bones/2/rotation = Quaternion(0.9922443, 0.058116306, 0.070491105, 0.0842908)
+bones/3/rotation = Quaternion(0.26427668, 6.38238e-08, -1.7577155e-07, 0.964447)
+bones/4/rotation = Quaternion(-0.530899, -0.114335395, 0.041930538, 0.8386391)
+bones/6/rotation = Quaternion(0.9972478, -0.029518666, 0.031502094, 0.0602768)
+bones/7/rotation = Quaternion(0.27534607, -6.304386e-08, 1.9007301e-07, 0.96134526)
+bones/8/rotation = Quaternion(-0.559771, 0.114504434, -0.008740474, 0.8206515)
+bones/10/rotation = Quaternion(0.00033455636, -9.322959e-08, 2.8958502e-05, 1)
+bones/11/rotation = Quaternion(0.0047135414, 2.6208136e-09, 0.00040799368, 0.99998885)
+bones/12/rotation = Quaternion(-0.0036743637, -0.031341527, -0.00020227999, 0.99950206)
+bones/13/rotation = Quaternion(-0.53369284, -0.11632538, -0.7715586, 0.32609487)
+bones/14/rotation = Quaternion(-2.9974185e-08, -7.3810085e-08, -0.35915104, 0.93327945)
+bones/16/rotation = Quaternion(-0.22205484, -0.3456877, 0.18435349, 0.89286363)
+bones/17/rotation = Quaternion(5.1422358e-05, 5.142136e-05, -0.7069181, 0.70729554)
+bones/18/rotation = Quaternion(-0.56062335, 0.04641224, 0.7367844, 0.3750948)
+bones/19/rotation = Quaternion(1.1893779e-08, 4.4457437e-08, 0.37682444, 0.92628473)
+bones/21/rotation = Quaternion(-0.21234699, 0.38398153, -0.14005445, 0.8876102)
+bones/22/rotation = Quaternion(5.142236e-05, -5.1411447e-05, 0.7069181, 0.70729554)
 
 [node name="ShoulderTarget" type="Node3D" parent="Player" unique_id=1495785243]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1523952, 1.3844544, -1.4770064)
@@ -118,6 +128,7 @@ flash_interval_curve = SubResource("Curve_ya4ey")
 physics_interpolation_mode = 1
 transform = Transform3D(-1, 0, 0, 0, 0.9723699, 0.2334453, 0, 0.2334453, -0.9723699, 0, -3.9889016, 15.431778)
 top_level = true
+attributes = SubResource("CameraAttributesPractical_14a1q")
 
 [node name="ThirdPersonCamera" type="Node3D" parent="Camera3D" unique_id=1934427487 node_paths=PackedStringArray("follow_target")]
 transform = Transform3D(1, 0, 0, 0, 0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0)
